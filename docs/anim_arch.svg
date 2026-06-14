@@ -1,62 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="100%">
   <defs>
     <style>
-      @keyframes flow {
-        0% { stroke-dashoffset: 100; opacity: 0; }
-        50% { opacity: 1; }
-        100% { stroke-dashoffset: 0; opacity: 0; }
-      }
-      @keyframes pulse {
-        0%, 100% { opacity: 0.8; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.05); }
-      }
-      .bg { fill: #0a0a1a; }
-      .grid { stroke: rgba(0, 170, 255, 0.1); stroke-width: 1; }
-      .node { fill: #001122; stroke: #00aaff; stroke-width: 2; }
-      .packet { fill: none; stroke: #00ffcc; stroke-width: 4; stroke-dasharray: 20 80; animation: flow 2s linear infinite; }
-      .text { font-family: 'Courier New', monospace; font-size: 20px; fill: #00aaff; font-weight: bold; text-anchor: middle; }
+      .bg { fill: #050a14; }
+      .text-title { font-family: 'Courier New', monospace; font-size: 24px; fill: #00e5ff; font-weight: bold; }
+      .text-sub { font-family: 'Courier New', monospace; font-size: 14px; fill: #4d99cc; }
+      .text-micro { font-family: 'Courier New', monospace; font-size: 10px; fill: #264d66; }
+      @keyframes dash { to { stroke-dashoffset: -100; } }
+      @keyframes pulseOp { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+      .data-line { fill: none; stroke: #00e5ff; stroke-width: 2; stroke-dasharray: 10 15; animation: dash 1s linear infinite; }
+      .data-line-fast { fill: none; stroke: #ffaa00; stroke-width: 3; stroke-dasharray: 20 20; animation: dash 0.5s linear infinite; }
     </style>
-    <pattern id="cyber-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" class="grid"/>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 L0 0 L0 40" fill="none" stroke="#003366" stroke-width="0.5"/>
     </pattern>
   </defs>
+  <rect width="1200" height="300" class="bg"/>
+  <rect width="1200" height="300" fill="url(#grid)"/>
 
-  <rect width="1200" height="250" class="bg" />
-  <rect width="1200" height="250" fill="url(#cyber-grid)" />
-
-  <!-- Process Nodes -->
-  <g transform="translate(200, 125)">
-    <g style="animation: pulse 3s infinite;">
-      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-      <text y="5" class="text">PROCESS A</text>
-      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Vision]</text>
-    </g>
+  <!-- PCB Traces -->
+  <path d="M 0 50 L 100 50 L 150 100 L 250 100" fill="none" stroke="#003366" stroke-width="2"/>
+  <path d="M 0 250 L 100 250 L 150 200 L 250 200" fill="none" stroke="#003366" stroke-width="2"/>
+  
+  <!-- Vision Agent (Left) -->
+  <g transform="translate(150, 150)">
+    <rect x="-100" y="-70" width="200" height="140" fill="#001a33" stroke="#00e5ff" stroke-width="2" rx="5"/>
+    <text y="-30" class="text-title" text-anchor="middle">PROCESS A</text>
+    <text y="-10" class="text-sub" text-anchor="middle">[Vision AI Node]</text>
+    <circle cx="0" cy="20" r="15" fill="none" stroke="#ff0055" stroke-width="3" style="animation: pulseOp 2s infinite;"/>
+    <circle cx="0" cy="20" r="5" fill="#ff0055"/>
+    <text x="-90" y="55" class="text-micro">GPU_MEM: ALLOCATED</text>
+    <text x="-90" y="65" class="text-micro">FPS_LOCK: 30.0Hz</text>
   </g>
 
-  <g transform="translate(600, 125)">
-    <g style="animation: pulse 3s infinite 1s;">
-      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-      <text y="5" class="text">PROCESS B</text>
-      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Fusion]</text>
-    </g>
+  <!-- Fusion Agent (Center) -->
+  <g transform="translate(600, 150)">
+    <rect x="-120" y="-90" width="240" height="180" fill="#001122" stroke="#ffaa00" stroke-width="3" rx="10"/>
+    <text y="-50" class="text-title" text-anchor="middle" style="fill:#ffaa00;">PROCESS B</text>
+    <text y="-30" class="text-sub" text-anchor="middle" style="fill:#cc8800;">[Tactical Fusion Engine]</text>
+    
+    <rect x="-80" y="-10" width="160" height="60" fill="#000" stroke="#ffaa00" stroke-width="1"/>
+    <text x="-70" y="10" class="text-micro" style="fill:#ffaa00;">> EKF: TRACKING</text>
+    <text x="-70" y="25" class="text-micro" style="fill:#ffaa00;">> SGP4: ORBITAL SYNC</text>
+    <text x="-70" y="40" class="text-micro" style="fill:#ffaa00;">> BAYES: FUSING...</text>
   </g>
 
-  <g transform="translate(1000, 125)">
-    <g style="animation: pulse 3s infinite 2s;">
-      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-      <text y="5" class="text">PROCESS C</text>
-      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Network]</text>
-    </g>
+  <!-- Network Agent (Right) -->
+  <g transform="translate(1050, 150)">
+    <rect x="-100" y="-70" width="200" height="140" fill="#001a33" stroke="#00ffaa" stroke-width="2" rx="5"/>
+    <text y="-30" class="text-title" text-anchor="middle" style="fill:#00ffaa;">PROCESS C</text>
+    <text y="-10" class="text-sub" text-anchor="middle" style="fill:#00cc88;">[WebSockets Bus]</text>
+    <circle cx="0" cy="20" r="15" fill="none" stroke="#00ffaa" stroke-width="3" style="animation: pulseOp 1s infinite;"/>
+    <circle cx="0" cy="20" r="5" fill="#00ffaa"/>
+    <text x="-90" y="55" class="text-micro">PORT: 8000</text>
+    <text x="-90" y="65" class="text-micro">CLIENTS: ACTIVE</text>
   </g>
 
-  <!-- Connection Lines (IPC Queues) -->
-  <path d="M 280 125 L 520 125" fill="none" stroke="#223344" stroke-width="4" />
-  <path d="M 280 125 L 520 125" class="packet" style="animation-duration: 1.5s;" />
-
-  <path d="M 680 125 L 920 125" fill="none" stroke="#223344" stroke-width="4" />
-  <path d="M 680 125 L 920 125" class="packet" style="animation-duration: 1s;" />
-
-  <!-- IPC Labels -->
-  <text x="400" y="110" class="text" style="font-size: 16px; fill: #00ffcc;">IPC Queue (30Hz)</text>
-  <text x="800" y="110" class="text" style="font-size: 16px; fill: #00ffcc;">IPC Queue (60Hz)</text>
+  <!-- IPC Queues Data Lines -->
+  <path d="M 250 120 L 480 120" class="data-line"/>
+  <path d="M 250 150 L 480 150" class="data-line" style="animation-direction: reverse;"/>
+  <path d="M 250 180 L 480 180" class="data-line"/>
+  <text x="365" y="105" class="text-sub" text-anchor="middle">IPC Queue 1 (Det)</text>
+  
+  <path d="M 720 120 L 950 120" class="data-line-fast"/>
+  <path d="M 720 150 L 950 150" class="data-line-fast" style="animation-direction: reverse;"/>
+  <path d="M 720 180 L 950 180" class="data-line-fast"/>
+  <text x="835" y="105" class="text-sub" text-anchor="middle" style="fill:#ffaa00;">IPC Queue 2 (State)</text>
 </svg>

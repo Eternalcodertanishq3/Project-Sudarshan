@@ -1,54 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="100%">
   <defs>
     <style>
-      @keyframes shrink {
-        0% { stroke-width: 10; opacity: 0.2; transform: scale(1.5); }
-        50% { stroke-width: 2; opacity: 1; transform: scale(1); }
-        100% { stroke-width: 10; opacity: 0.2; transform: scale(1.5); }
-      }
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-      @keyframes scan {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(400px); }
-      }
-      .bg { fill: #0d001a; }
-      .grid { stroke: rgba(170, 0, 255, 0.1); stroke-width: 1; }
-      .math-text { font-family: 'Times New Roman', serif; font-size: 28px; fill: #dd88ff; font-style: italic; text-anchor: middle; }
-      .bell { fill: none; stroke: #aa00ff; transform-origin: center; animation: shrink 4s infinite ease-in-out; }
-      .scanline { fill: none; stroke: #ff00aa; stroke-width: 2; opacity: 0.6; animation: scan 2s linear infinite alternate; }
+      .bg { fill: #0a0014; }
+      .grid { stroke: #26004d; stroke-width: 1; }
+      .math { font-family: 'Times New Roman', serif; font-size: 26px; fill: #d499ff; font-style: italic; }
+      .math-glow { fill: #ffb3ff; filter: drop-shadow(0 0 8px #ff00ff); }
+      @keyframes pulseOp { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
     </style>
-    <pattern id="hex-grid" width="30" height="51.96" patternUnits="userSpaceOnUse">
-      <path d="M 15 0 L 30 8.66 L 30 25.98 L 15 34.64 L 0 25.98 L 0 8.66 Z M 0 25.98 L 15 34.64 L 15 51.96 L 0 43.3 Z M 30 25.98 L 15 34.64 L 15 51.96 L 30 43.3 Z" fill="none" class="grid"/>
+    <pattern id="graph" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0 L0 0 L0 50" fill="none" class="grid"/>
     </pattern>
+    <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff00ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ff00ff" stop-opacity="0.0"/>
+    </linearGradient>
   </defs>
 
-  <rect width="1200" height="250" class="bg" />
-  <rect width="1200" height="250" fill="url(#hex-grid)" />
+  <rect width="1200" height="300" class="bg"/>
+  <rect width="1200" height="300" fill="url(#graph)"/>
 
-  <!-- Math Equations Floating -->
-  <g style="animation: float 5s infinite ease-in-out;">
-    <text x="200" y="80" class="math-text">P_{k|k-1} = F_k P_{k-1|k-1} F_k^T + Q_k</text>
-    <text x="1000" y="180" class="math-text">y_k = z_k - H_k x_{k|k-1}</text>
-  </g>
-  <g style="animation: float 6s infinite ease-in-out reverse;">
-    <text x="1000" y="80" class="math-text">S_k = H_k P_{k|k-1} H_k^T + R_k</text>
-    <text x="200" y="180" class="math-text">K_k = P_{k|k-1} H_k^T S_k^{-1}</text>
-  </g>
+  <!-- Background Math Formulas -->
+  <text x="50" y="60" class="math opacity-50">x_{k|k-1} = F_k x_{k-1|k-1}</text>
+  <text x="850" y="60" class="math opacity-50">P_{k|k-1} = F_k P_{k-1|k-1} F_k^T + Q_k</text>
+  <text x="50" y="260" class="math opacity-50">S_k = H_k P_{k|k-1} H_k^T + R_k</text>
+  <text x="850" y="260" class="math opacity-50">K_k = P_{k|k-1} H_k^T S_k^{-1}</text>
 
-  <!-- Central EKF Visualization -->
-  <g transform="translate(600, 125)">
-    <!-- Base Graph Axis -->
-    <path d="M -200 70 L 200 70 M 0 -70 L 0 70" fill="none" stroke="#442266" stroke-width="2" />
-    <!-- Shrinking Gaussian Bell Curve -->
-    <path d="M -150 70 Q -50 70 0 -50 T 150 70" class="bell" />
-    <path d="M -150 70 Q -50 70 0 -50 T 150 70" class="bell" style="animation-delay: 2s; stroke: #ff00aa;" />
+  <!-- Central EKF Graphic -->
+  <g transform="translate(600, 200)">
+    <!-- Axes -->
+    <path d="M -300 0 L 300 0" fill="none" stroke="#ffb3ff" stroke-width="2"/>
+    <path d="M 0 -150 L 0 50" fill="none" stroke="#ffb3ff" stroke-width="2" stroke-dasharray="5 5"/>
     
-    <!-- Radar Scanline -->
-    <path d="M -200 -80 L -200 80" class="scanline" />
-    <!-- Target Lock Point -->
-    <circle cx="0" cy="50" r="5" fill="#fff" />
+    <!-- Gaussian Curve -->
+    <path d="M -250 0 C -150 0, -100 -120, 0 -120 C 100 -120, 150 0, 250 0 Z" fill="url(#curveGrad)" stroke="#ff00ff" stroke-width="3" style="animation: pulseOp 3s infinite;"/>
+    
+    <!-- Moving Target Marker -->
+    <circle cx="-150" cy="-20" r="6" fill="#00ffff">
+      <animate attributeName="cx" values="-200; 200; -200" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="-5; -80; -5" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Highlight Equation -->
+    <text x="-120" y="-140" class="math math-glow">P(Threat | Evidence) = \frac{P(E|T)P(T)}{P(E)}</text>
   </g>
 </svg>

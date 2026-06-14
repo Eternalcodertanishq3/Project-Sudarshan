@@ -1,62 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="100%">
   <defs>
     <style>
-      @keyframes load {
-        0% { width: 0; }
-        100% { width: 400px; }
-      }
-      @keyframes blinkLights {
-        0%, 100% { fill: #333; }
-        50% { fill: #ffaa00; }
-      }
-      @keyframes blinkGreen {
-        0%, 100% { fill: #333; }
-        50% { fill: #00ff00; }
-      }
-      .bg { fill: #111; }
-      .rack { fill: #222; stroke: #444; stroke-width: 2; }
-      .server { fill: #1a1a1a; stroke: #333; stroke-width: 1; }
-      .text { font-family: 'Courier New', monospace; font-size: 16px; fill: #ffaa00; font-weight: bold; }
-      .bar-bg { fill: #333; rx: 5; }
-      .bar-fill { fill: #ffaa00; rx: 5; animation: load 3s ease-in-out infinite alternate; }
+      .bg { fill: #0d0d0d; }
+      .text-term { font-family: 'Courier New', monospace; font-size: 14px; fill: #00ff00; }
+      .text-alert { font-family: 'Courier New', monospace; font-size: 18px; fill: #ffaa00; font-weight:bold; }
+      @keyframes blinkOp { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+      @keyframes loadBar { 0% { width: 0; } 100% { width: 380px; } }
     </style>
   </defs>
 
-  <rect width="1200" height="250" class="bg" />
+  <rect width="1200" height="300" class="bg"/>
 
-  <!-- Server Rack -->
-  <g transform="translate(100, 25)">
-    <rect x="0" y="0" width="300" height="200" class="rack" />
-    <!-- Server 1 -->
-    <rect x="10" y="10" width="280" height="40" class="server" />
-    <circle cx="30" cy="30" r="5" style="animation: blinkGreen 1s infinite;" />
-    <circle cx="50" cy="30" r="5" style="animation: blinkGreen 1s infinite 0.2s;" />
-    <text x="70" y="35" class="text" style="fill: #888;">NODE-01 [ACTIVE]</text>
+  <!-- Edge Server Rack (Left) -->
+  <g transform="translate(100, 30)">
+    <rect x="0" y="0" width="300" height="240" fill="#1a1a1a" stroke="#444" stroke-width="4" rx="5"/>
     
-    <!-- Server 2 -->
-    <rect x="10" y="60" width="280" height="40" class="server" />
-    <circle cx="30" cy="80" r="5" style="animation: blinkLights 2s infinite;" />
-    <text x="70" y="85" class="text" style="fill: #888;">YOLOv10 CACHE</text>
-
-    <!-- Server 3 -->
-    <rect x="10" y="110" width="280" height="40" class="server" />
-    <circle cx="30" cy="130" r="5" style="animation: blinkLights 1.5s infinite 0.5s;" />
-    <text x="70" y="135" class="text" style="fill: #888;">TLE OFFLINE SYNC</text>
-
-    <!-- Server 4 -->
-    <rect x="10" y="160" width="280" height="30" class="server" />
+    <!-- Server Blades -->
+    <rect x="10" y="20" width="280" height="40" fill="#222" stroke="#555" stroke-width="2"/>
+    <circle cx="30" cy="40" r="6" fill="#00ff00" style="animation: blinkOp 1s infinite;"/>
+    <rect x="50" y="35" width="20" height="10" fill="#00ff00"/>
+    <rect x="80" y="35" width="20" height="10" fill="#444"/>
+    
+    <rect x="10" y="80" width="280" height="40" fill="#222" stroke="#555" stroke-width="2"/>
+    <circle cx="30" cy="100" r="6" fill="#ffaa00" style="animation: blinkOp 2s infinite;"/>
+    <rect x="50" y="95" width="20" height="10" fill="#ffaa00"/>
+    
+    <rect x="10" y="140" width="280" height="40" fill="#222" stroke="#555" stroke-width="2"/>
+    <circle cx="30" cy="160" r="6" fill="#00ff00" style="animation: blinkOp 0.5s infinite;"/>
+    
+    <rect x="10" y="200" width="280" height="20" fill="#111" stroke="#333"/>
   </g>
 
-  <!-- Air Gapped Deployment Connection -->
-  <path d="M 400 125 L 500 125" fill="none" stroke="#ffaa00" stroke-width="4" stroke-dasharray="10 10" style="animation: load 3s linear infinite;" />
+  <!-- Air Gap Indicator (Center) -->
+  <g transform="translate(500, 150)">
+    <path d="M 0 0 L 150 0" fill="none" stroke="#ffaa00" stroke-width="4" stroke-dasharray="10 10"/>
+    <rect x="50" y="-30" width="50" height="60" fill="#111" stroke="#ffaa00" stroke-width="3"/>
+    <!-- Lock Icon -->
+    <path d="M 60 -10 C 60 -30, 90 -30, 90 -10 L 90 0 L 60 0 Z" fill="none" stroke="#ffaa00" stroke-width="3"/>
+    <text x="75" y="15" class="text-term" text-anchor="middle" style="fill:#ffaa00; font-size:24px;">X</text>
+    <text x="75" y="55" class="text-alert" text-anchor="middle">AIR-GAP</text>
+  </g>
 
-  <!-- Loading Bar & Status UI -->
-  <g transform="translate(550, 100)">
-    <text x="0" y="-10" class="text" style="font-size: 24px;">AIR-GAPPED DEPLOYMENT INITIALIZING...</text>
-    <rect x="0" y="10" width="400" height="20" class="bar-bg" />
-    <rect x="0" y="10" width="0" height="20" class="bar-fill" />
-    <text x="0" y="60" class="text" style="fill: #aaa;">> Loading pre-fetched weights...</text>
-    <text x="0" y="80" class="text" style="fill: #aaa;">> Severing network interfaces...</text>
-    <text x="0" y="100" class="text" style="fill: #00ff00;">> EDGE NODE SECURED.</text>
+  <!-- Terminal Window (Right) -->
+  <g transform="translate(700, 30)">
+    <rect x="0" y="0" width="400" height="240" fill="#001100" stroke="#00ff00" stroke-width="2" rx="5"/>
+    <rect x="0" y="0" width="400" height="30" fill="#003300" rx="5"/>
+    <text x="10" y="20" class="text-term" style="font-weight:bold;">root@sudarshan-edge:~#</text>
+    
+    <!-- Scrolling Text Simulation -->
+    <g transform="translate(10, 60)">
+      <text y="0" class="text-term">> Fetching yolov10s.pt [LOCAL CACHE]</text>
+      <text y="30" class="text-term">> Loading TLE data offline...</text>
+      <text y="60" class="text-term">> Disabling wlan0 / eth0...</text>
+      <text y="90" class="text-term">> STATUS: ALL INTERFACES DOWN</text>
+      <text y="120" class="text-alert" style="fill:#00ff00;">> DEPLOYMENT READY.</text>
+    </g>
+    
+    <!-- Loading Bar -->
+    <rect x="10" y="200" width="380" height="15" fill="#003300" stroke="#00ff00"/>
+    <rect x="10" y="200" width="0" height="15" fill="#00ff00" style="animation: loadBar 3s ease-out forwards;"/>
   </g>
 </svg>

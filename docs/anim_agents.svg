@@ -1,70 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="100%">
   <defs>
     <style>
-      @keyframes spin { 100% { transform: rotate(360deg); } }
-      @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-      @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
       .bg { fill: #001100; }
-      .grid { stroke: rgba(0, 255, 0, 0.1); stroke-width: 1; }
-      .ring { fill: none; stroke: #00ff00; stroke-width: 2; stroke-dasharray: 4 8; animation: spin 10s linear infinite; }
-      .icon-bg { fill: #002200; stroke: #00ff00; stroke-width: 2; }
-      .icon-fill { fill: #00ff00; }
-      .text { font-family: 'Courier New', monospace; font-size: 18px; fill: #00ff00; font-weight: bold; text-anchor: middle; text-shadow: 0 0 5px #00ff00; }
-      .link { fill: none; stroke: #004400; stroke-width: 3; stroke-dasharray: 5 5; animation: blink 2s infinite; }
+      .grid { stroke: #003300; stroke-width: 1; }
+      .text-title { font-family: 'Courier New', monospace; font-size: 16px; fill: #00ff00; font-weight: bold; text-anchor: middle; }
+      @keyframes pulseOp { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+      @keyframes dash { to { stroke-dashoffset: -40; } }
+      .stream { fill: none; stroke: #00ff00; stroke-width: 2; stroke-dasharray: 10 10; animation: dash 1s linear infinite; }
     </style>
-    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" class="grid"/>
+    <pattern id="hex" width="30" height="51.96" patternUnits="userSpaceOnUse">
+      <path d="M15 0 L30 8.66 L30 25.98 L15 34.64 L0 25.98 L0 8.66 Z" fill="none" class="grid"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="250" class="bg" />
-  <rect width="1200" height="250" fill="url(#dot-grid)" />
+  <rect width="1200" height="300" class="bg"/>
+  <rect width="1200" height="300" fill="url(#hex)"/>
 
-  <!-- Connection Links -->
-  <path d="M 300 125 L 450 125 M 750 125 L 900 125" class="link" />
-  <path d="M 450 125 Q 600 50 750 125" class="link" style="animation-delay: 0.5s;" />
+  <!-- Connecting Lines -->
+  <path d="M 250 150 L 550 150" class="stream"/>
+  <path d="M 250 60 L 550 130" class="stream"/>
+  <path d="M 250 240 L 550 170" class="stream"/>
+  <path d="M 650 150 L 950 150" class="stream" style="stroke:#00ffff; stroke-width:4;"/>
 
-  <!-- 1. Vision Agent -->
-  <g transform="translate(300, 125)">
-    <g style="animation: bob 4s infinite ease-in-out;">
-      <circle cx="0" cy="0" r="40" class="icon-bg" />
-      <circle cx="0" cy="0" r="50" class="ring" />
-      <path d="M -20 0 Q 0 -20 20 0 Q 0 20 -20 0 Z" class="icon-fill" />
-      <circle cx="0" cy="0" r="5" fill="#000" />
-      <text y="70" class="text">VISION AGENT</text>
-    </g>
+  <!-- Vision Agent (Top Left) -->
+  <g transform="translate(150, 60)">
+    <circle cx="0" cy="0" r="40" fill="#002200" stroke="#00ff00" stroke-width="2"/>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#00ff00" stroke-dasharray="10 5">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="10" fill="#00ff00" style="animation: pulseOp 2s infinite;"/>
+    <text y="60" class="text-title">VISION_AI</text>
   </g>
 
-  <!-- 2. Kinematic Agent -->
-  <g transform="translate(500, 125)">
-    <g style="animation: bob 4s infinite ease-in-out 1s;">
-      <circle cx="0" cy="0" r="40" class="icon-bg" />
-      <circle cx="0" cy="0" r="50" class="ring" style="animation-direction: reverse;" />
-      <path d="M -20 15 L -10 -10 L 0 5 L 15 -15" fill="none" stroke="#00ff00" stroke-width="4" />
-      <circle cx="15" cy="-15" r="4" class="icon-fill" />
-      <text y="70" class="text">KINEMATIC AGENT</text>
-    </g>
+  <!-- Kinematic Agent (Middle Left) -->
+  <g transform="translate(150, 150)">
+    <circle cx="0" cy="0" r="40" fill="#002200" stroke="#00ff00" stroke-width="2"/>
+    <path d="M-20 0 Q0 -30 20 0" fill="none" stroke="#00ff00" stroke-width="3"/>
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#00ff00" stroke-dasharray="4 8">
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <text y="60" class="text-title">KINEMATIC_EKF</text>
   </g>
 
-  <!-- 3. Orbital Agent -->
-  <g transform="translate(700, 125)">
-    <g style="animation: bob 4s infinite ease-in-out 2s;">
-      <circle cx="0" cy="0" r="40" class="icon-bg" />
-      <circle cx="0" cy="0" r="50" class="ring" />
-      <circle cx="0" cy="0" r="15" class="icon-fill" />
-      <ellipse cx="0" cy="0" rx="25" ry="8" fill="none" stroke="#00ff00" stroke-width="2" transform="rotate(45)" />
-      <text y="70" class="text">ORBITAL AGENT</text>
-    </g>
+  <!-- Orbital Agent (Bottom Left) -->
+  <g transform="translate(150, 240)">
+    <circle cx="0" cy="0" r="40" fill="#002200" stroke="#00ff00" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="25" ry="10" fill="none" stroke="#00ff00" stroke-width="2" transform="rotate(30)"/>
+    <circle cx="0" cy="0" r="5" fill="#00ff00"/>
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#00ff00" stroke-dasharray="15 15">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <text y="45" class="text-title">ORBITAL_SGP4</text>
   </g>
 
-  <!-- 4. Tactical Fusion Agent -->
-  <g transform="translate(900, 125)">
-    <g style="animation: bob 4s infinite ease-in-out 3s;">
-      <circle cx="0" cy="0" r="40" class="icon-bg" />
-      <circle cx="0" cy="0" r="50" class="ring" style="animation-direction: reverse; stroke: #fff;" />
-      <path d="M -15 -10 Q 0 -25 15 -10 Q 25 0 15 15 Q 0 25 -15 15 Q -25 0 -15 -10 Z" fill="none" stroke="#00ff00" stroke-width="3" />
-      <circle cx="0" cy="2" r="5" class="icon-fill" style="animation: blink 1s infinite;" />
-      <text y="70" class="text" style="fill: #fff;">FUSION NEXUS</text>
-    </g>
+  <!-- Tactical Fusion Agent (Center) -->
+  <g transform="translate(600, 150)">
+    <circle cx="0" cy="0" r="70" fill="#001a00" stroke="#00ff00" stroke-width="4"/>
+    <circle cx="0" cy="0" r="55" fill="none" stroke="#00ff00" stroke-width="2" stroke-dasharray="20 10">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="20" fill="#00ff00" style="animation: pulseOp 1.5s infinite;"/>
+    <text y="100" class="text-title" style="font-size: 22px;">BAYESIAN_FUSION</text>
+  </g>
+
+  <!-- Output Action (Right) -->
+  <g transform="translate(1000, 150)">
+    <polygon points="-40,-40 40,-40 60,0 40,40 -40,40 -60,0" fill="#003333" stroke="#00ffff" stroke-width="3"/>
+    <text y="5" class="text-title" style="fill: #00ffff;">THREAT_ALERT</text>
+    <text y="80" class="text-title" style="fill: #00aaaa;">> WEBSOCKET BROADCAST</text>
   </g>
 </svg>
