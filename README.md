@@ -113,5 +113,14 @@ Once the dashboard opens:
 - **Drone Swarm Countermeasures:** Implement UDP broadcast out to an active defense grid (e.g. RF Jammers) to automatically neutralize targets hitting a >95% Bayesian threat probability.
 - **Naval Domain Expansion:** Integrate AIS (Automatic Identification System) local radio intercepts into the Fusion Engine.
 
+## 📚 Documentation Directory
+To explore the deep technical engineering behind Sudarshan, please review our comprehensive documentation suite:
+
+- 🏗️ **[System Architecture](ARCHITECTURE.md)**: Multi-processing IPC pipelines and zero-lag async design.
+- 📐 **[Mathematical Specification](docs/MATHEMATICAL_SPEC.md)**: The raw equations driving the Extended Kalman Filter, SGP4 transforms, and Bayesian fusion.
+- 🤖 **[Agent Guide](docs/AGENT_GUIDE.md)**: Detailed breakdown of the Vision, Kinematic, Orbital, and Tactical agents.
+- 🔒 **[Deployment Guide](docs/DEPLOYMENT.md)**: How to initialize the TLE/YOLO caches for Air-Gapped edge nodes.
+- 📋 **[Executive Defense Brief](docs/DRDO_BRIEF.md)**: Formal operational briefing of the Quad-Domain Nexus.
+
 ---
 *Developed for FAR AWAY 2026 Hackathon. "Build intelligent systems that can think, decide and act independently."*
