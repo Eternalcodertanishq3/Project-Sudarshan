@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+websockets
+torch
+torchvision
+torchaudio
+ultralytics
+opencv-python
+numpy
+scipy
+skyfield
+httpx
+pydantic
+python-dotenv
