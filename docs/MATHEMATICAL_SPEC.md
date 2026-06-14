@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="anim_math.svg" alt="Mathematical Animation" width="100%" />
+</div>
+
 # Mathematical Specification
 
 Sudarshan leverages rigorous physics and statistical models to fuse multi-domain data.

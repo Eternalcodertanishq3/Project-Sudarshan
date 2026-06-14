@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="anim_drdo.svg" alt="DRDO Radar Animation" width="100%" />
+</div>
+
 # EXECUTIVE SUMMARY: PROJECT SUDARSHAN
 **CLASSIFICATION: UNCLASSIFIED / FOR DEMO PURPOSES ONLY**
 

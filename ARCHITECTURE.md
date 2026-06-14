@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="docs/anim_arch.svg" alt="Architecture Animation" width="100%" />
+</div>
+
 # Architecture Deep Dive
 
 Project Sudarshan uses a **Deterministic Asynchronous Multi-Processing** architecture to isolate heavy ML inference and complex matrix math from the networking and UI layers.

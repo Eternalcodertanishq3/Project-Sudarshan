@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="anim_deploy.svg" alt="Deployment Animation" width="100%" />
+</div>
+
 # Deployment & Operations Guide
 
 ## Air-Gapped Philosophy

@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="anim_agents.svg" alt="Agent Logic Animation" width="100%" />
+</div>
+
 # Agent Guide
 
 The Sudarshan system is driven by four independent agents.

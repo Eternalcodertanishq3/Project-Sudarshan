@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+  <defs>
+    <style>
+      @keyframes radarSweep {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes blip {
+        0%, 100% { opacity: 0; }
+        5% { opacity: 1; fill: #ff0044; transform: scale(1.5); }
+        50% { opacity: 0.2; fill: #ff0044; transform: scale(1); }
+      }
+      @keyframes textFlicker {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .bg { fill: #000500; }
+      .grid-circle { fill: none; stroke: #004400; stroke-width: 1; }
+      .crosshair { stroke: #00ff00; stroke-width: 1; opacity: 0.5; }
+      .sweep { fill: url(#radarGradient); animation: radarSweep 4s infinite linear; transform-origin: center; }
+      .text { font-family: 'Courier New', monospace; font-size: 20px; fill: #00ff00; font-weight: bold; }
+      .alert-text { font-family: 'Courier New', monospace; font-size: 16px; fill: #ff0044; font-weight: bold; }
+    </style>
+    <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(0, 255, 0, 0.4)" />
+      <stop offset="100%" stop-color="rgba(0, 255, 0, 0)" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="250" class="bg" />
+
+  <!-- Radar Interface -->
+  <g transform="translate(600, 125)">
+    <!-- Radar Rings -->
+    <circle cx="0" cy="0" r="120" class="grid-circle" stroke-dasharray="5 5" />
+    <circle cx="0" cy="0" r="90" class="grid-circle" />
+    <circle cx="0" cy="0" r="60" class="grid-circle" stroke-dasharray="2 4" />
+    <circle cx="0" cy="0" r="30" class="grid-circle" />
+    
+    <!-- Crosshairs -->
+    <line x1="-120" y1="0" x2="120" y2="0" class="crosshair" />
+    <line x1="0" y1="-120" x2="0" y2="120" class="crosshair" />
+    
+    <!-- Radar Sweep -->
+    <path d="M 0 0 L 0 -120 A 120 120 0 0 1 120 0 Z" class="sweep" />
+    
+    <!-- Target Blip -->
+    <circle cx="50" cy="-50" r="4" style="animation: blip 4s infinite 0.5s;" />
+    <circle cx="-80" cy="20" r="3" style="animation: blip 4s infinite 2s; fill: #00aaff;" />
+  </g>
+
+  <!-- Side UI Elements -->
+  <g transform="translate(50, 50)" style="animation: textFlicker 2s infinite;">
+    <text x="0" y="0" class="text" style="font-size: 32px; letter-spacing: 5px;">COMMAND NEXUS</text>
+    <text x="0" y="30" class="text" style="fill: #888;">CLASSIFICATION: UNCLASSIFIED</text>
+    <text x="0" y="60" class="text" style="fill: #888;">AUTH_LVL: DEMO_MODE</text>
+  </g>
+
+  <g transform="translate(900, 50)">
+    <text x="0" y="0" class="text">SYS_DIAGNOSTICS</text>
+    <text x="0" y="30" class="text" style="fill: #00ff00;">> VISION:  ONLINE</text>
+    <text x="0" y="50" class="text" style="fill: #00ff00;">> ORBITAL: SYNCED</text>
+    <text x="0" y="70" class="text" style="fill: #00ff00;">> FUSION:  ACTIVE</text>
+    <text x="0" y="100" class="alert-text">> TARGETING ENGAGED</text>
+  </g>
+</svg>

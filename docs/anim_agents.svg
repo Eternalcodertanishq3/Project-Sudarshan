@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+  <defs>
+    <style>
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+      @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+      .bg { fill: #001100; }
+      .grid { stroke: rgba(0, 255, 0, 0.1); stroke-width: 1; }
+      .ring { fill: none; stroke: #00ff00; stroke-width: 2; stroke-dasharray: 4 8; animation: spin 10s linear infinite; }
+      .icon-bg { fill: #002200; stroke: #00ff00; stroke-width: 2; }
+      .icon-fill { fill: #00ff00; }
+      .text { font-family: 'Courier New', monospace; font-size: 18px; fill: #00ff00; font-weight: bold; text-anchor: middle; text-shadow: 0 0 5px #00ff00; }
+      .link { fill: none; stroke: #004400; stroke-width: 3; stroke-dasharray: 5 5; animation: blink 2s infinite; }
+    </style>
+    <pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" class="grid"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="250" class="bg" />
+  <rect width="1200" height="250" fill="url(#dot-grid)" />
+
+  <!-- Connection Links -->
+  <path d="M 300 125 L 450 125 M 750 125 L 900 125" class="link" />
+  <path d="M 450 125 Q 600 50 750 125" class="link" style="animation-delay: 0.5s;" />
+
+  <!-- 1. Vision Agent -->
+  <g transform="translate(300, 125)" style="animation: bob 4s infinite ease-in-out;">
+    <circle cx="0" cy="0" r="40" class="icon-bg" />
+    <circle cx="0" cy="0" r="50" class="ring" />
+    <path d="M -20 0 Q 0 -20 20 0 Q 0 20 -20 0 Z" class="icon-fill" />
+    <circle cx="0" cy="0" r="5" fill="#000" />
+    <text y="70" class="text">VISION AGENT</text>
+  </g>
+
+  <!-- 2. Kinematic Agent -->
+  <g transform="translate(500, 125)" style="animation: bob 4s infinite ease-in-out 1s;">
+    <circle cx="0" cy="0" r="40" class="icon-bg" />
+    <circle cx="0" cy="0" r="50" class="ring" style="animation-direction: reverse;" />
+    <path d="M -20 15 L -10 -10 L 0 5 L 15 -15" fill="none" stroke="#00ff00" stroke-width="4" />
+    <circle cx="15" cy="-15" r="4" class="icon-fill" />
+    <text y="70" class="text">KINEMATIC AGENT</text>
+  </g>
+
+  <!-- 3. Orbital Agent -->
+  <g transform="translate(700, 125)" style="animation: bob 4s infinite ease-in-out 2s;">
+    <circle cx="0" cy="0" r="40" class="icon-bg" />
+    <circle cx="0" cy="0" r="50" class="ring" />
+    <circle cx="0" cy="0" r="15" class="icon-fill" />
+    <ellipse cx="0" cy="0" rx="25" ry="8" fill="none" stroke="#00ff00" stroke-width="2" transform="rotate(45)" />
+    <text y="70" class="text">ORBITAL AGENT</text>
+  </g>
+
+  <!-- 4. Tactical Fusion Agent -->
+  <g transform="translate(900, 125)" style="animation: bob 4s infinite ease-in-out 3s;">
+    <circle cx="0" cy="0" r="40" class="icon-bg" />
+    <circle cx="0" cy="0" r="50" class="ring" style="animation-direction: reverse; stroke: #fff;" />
+    <path d="M -15 -10 Q 0 -25 15 -10 Q 25 0 15 15 Q 0 25 -15 15 Q -25 0 -15 -10 Z" fill="none" stroke="#00ff00" stroke-width="3" />
+    <circle cx="0" cy="2" r="5" class="icon-fill" style="animation: blink 1s infinite;" />
+    <text y="70" class="text" style="fill: #fff;">FUSION NEXUS</text>
+  </g>
+</svg>
