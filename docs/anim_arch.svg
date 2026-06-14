@@ -25,22 +25,28 @@
   <rect width="1200" height="250" fill="url(#cyber-grid)" />
 
   <!-- Process Nodes -->
-  <g transform="translate(200, 125)" style="animation: pulse 3s infinite;">
-    <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-    <text y="5" class="text">PROCESS A</text>
-    <text y="25" class="text" style="font-size: 14px; fill: #888;">[Vision]</text>
+  <g transform="translate(200, 125)">
+    <g style="animation: pulse 3s infinite;">
+      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
+      <text y="5" class="text">PROCESS A</text>
+      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Vision]</text>
+    </g>
   </g>
 
-  <g transform="translate(600, 125)" style="animation: pulse 3s infinite 1s;">
-    <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-    <text y="5" class="text">PROCESS B</text>
-    <text y="25" class="text" style="font-size: 14px; fill: #888;">[Fusion]</text>
+  <g transform="translate(600, 125)">
+    <g style="animation: pulse 3s infinite 1s;">
+      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
+      <text y="5" class="text">PROCESS B</text>
+      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Fusion]</text>
+    </g>
   </g>
 
-  <g transform="translate(1000, 125)" style="animation: pulse 3s infinite 2s;">
-    <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
-    <text y="5" class="text">PROCESS C</text>
-    <text y="25" class="text" style="font-size: 14px; fill: #888;">[Network]</text>
+  <g transform="translate(1000, 125)">
+    <g style="animation: pulse 3s infinite 2s;">
+      <rect x="-80" y="-40" width="160" height="80" rx="10" class="node"/>
+      <text y="5" class="text">PROCESS C</text>
+      <text y="25" class="text" style="font-size: 14px; fill: #888;">[Network]</text>
+    </g>
   </g>
 
   <!-- Connection Lines (IPC Queues) -->
