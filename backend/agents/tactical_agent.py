@@ -97,14 +97,23 @@ class BayesianFusionEngine:
     # Likelihood functions P(evidence|threat) for each evidence type
     # These encode domain knowledge about what evidence looks like given a threat
     @staticmethod
-    def likelihood_vision(confidence: float) -> Tuple[float, float]:
+    def likelihood_vision(confidence: float, detected_class: str) -> Tuple[float, float]:
         """
         Returns (P(E|threat), P(E|no_threat))
-        High YOLO confidence → more likely a real threat.
+        Applies class weighting. Military profiles naturally carry higher intrinsic threat.
         """
-        p_given_threat = 0.3 + 0.65 * confidence   # 0.30 to 0.95
-        p_given_no_threat = 0.05 + 0.10 * confidence  # 0.05 to 0.15
-        return p_given_threat, p_given_no_threat
+        base_threat = 0.3 + 0.65 * confidence
+        base_no_threat = 0.05 + 0.10 * confidence
+        
+        if detected_class == "UNIDENTIFIED_UAV":
+            return base_threat * 1.5, base_no_threat * 0.5
+        elif detected_class == "HOSTILE_VESSEL":
+            return base_threat * 1.2, base_no_threat * 0.8
+        elif detected_class == "TACTICAL_VEHICLE":
+            return base_threat * 1.0, base_no_threat * 1.0
+            
+        # If it slips through, heavily penalize it
+        return 0.05, 0.90
 
     @staticmethod
     def likelihood_orbital(elevation_deg: float) -> Tuple[float, float]:
@@ -206,7 +215,7 @@ class BayesianFusionEngine:
 
         # 1. Vision evidence (Ev in spec document)
         if evidence.vision_confidence > 0:
-            lh = self.likelihood_vision(evidence.vision_confidence)
+            lh = self.likelihood_vision(evidence.vision_confidence, evidence.detected_class)
             evidence_list.append(lh)
             breakdown['vision'] = evidence.vision_confidence
 

@@ -70,6 +70,7 @@ class OrbitalAgent:
         33413: "USA-207 (KH-13)",
         39232: "USA-245 (NROL-39)",
         40889: "USA-268 (NROL-55)",
+        47306: "USA-311 (NROL-44) - MASSIVE SIGINT",
         # Chinese
         33732: "YAOGAN-7",
         37165: "YAOGAN-14",
@@ -77,6 +78,9 @@ class OrbitalAgent:
         # Russian
         41032: "BARS-M",
         43080: "KOSMOS-2519",
+        40081: "KOSMOS-2500 - SURVEILLANCE",
+        # Generic test
+        25544: "ISS (ZARYA) - TEST TARGET",
     }
 
     def __init__(
@@ -129,21 +133,20 @@ class OrbitalAgent:
             print("[OrbitalAgent] Loading TLE from offline cache...")
             with open(self.TLE_CACHE_PATH) as f:
                 tle_data = json.load(f)
-            self._parse_tle_list(tle_data)
+            self._parse_tle_lines(tle_data)
             return
 
         # Fetch from CelesTrak
-        print("[OrbitalAgent] Fetching TLE from CelesTrak...")
+        print("[OrbitalAgent] Fetching Military TLE from CelesTrak...")
         all_tle_lines = []
         async with httpx.AsyncClient(timeout=30.0) as client:
-            # Best endpoint: GP format (returns all active satellites)
             try:
                 resp = await client.get(
-                    "https://celestrak.org/SOCRATES/gp.php?GROUP=active&FORMAT=tle"
+                    "https://celestrak.org/NORAD/elements/military.txt"
                 )
                 lines = resp.text.strip().split('\n')
                 all_tle_lines.extend(lines)
-                print(f"[OrbitalAgent] Fetched {len(lines)//3} objects from CelesTrak")
+                print(f"[OrbitalAgent] Fetched {len(lines)//3} military objects from CelesTrak")
             except Exception as e:
                 print(f"[OrbitalAgent] Network fetch failed: {e}. Using cached data.")
 

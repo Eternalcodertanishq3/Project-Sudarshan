@@ -44,30 +44,22 @@ class VisionAgent:
     """
 
     # Map COCO class IDs to military-relevant threat categories
-    # In demo: use these common COCO classes to simulate military targets
+    # The Hackathon Trick: Re-map default COCO classes to military outputs
     THREAT_MAP = {
         # COCO class → (military_label, threat_level, domain)
-        0:  ("PERSONNEL",         "LOW",    "LAND"),
-        1:  ("BICYCLE",           "LOW",    "LAND"),
-        2:  ("VEHICLE",           "MEDIUM", "LAND"),
-        3:  ("MOTORCYCLE",        "LOW",    "LAND"),
-        4:  ("AIRCRAFT",          "HIGH",   "AIR"),     # simulate UAV
-        5:  ("BUS",               "MEDIUM", "LAND"),    # simulate APC
-        6:  ("TRAIN",             "LOW",    "LAND"),
-        7:  ("TRUCK",             "HIGH",   "LAND"),    # simulate armored vehicle
-        8:  ("BOAT",              "HIGH",   "SEA"),     # simulate frigate
-        14: ("BIRD",              "LOW",    "AIR"),     # micro-UAV sim
-        63: ("LAPTOP",            "LOW",    "LAND"),
-        67: ("PHONE",             "LOW",    "LAND"),
-        # For drone demo: use 'kite'(38) or 'frisbee'(29) as drone proxies
-        29: ("MICRO_UAV",         "HIGH",   "AIR"),
-        38: ("UAV",               "CRITICAL","AIR"),
+        2:  ("TACTICAL_VEHICLE",  "MEDIUM", "LAND"),    # Car
+        4:  ("UNIDENTIFIED_UAV",  "HIGH",   "AIR"),     # Airplane
+        5:  ("TACTICAL_VEHICLE",  "MEDIUM", "LAND"),    # Bus
+        7:  ("TACTICAL_VEHICLE",  "HIGH",   "LAND"),    # Truck
+        8:  ("HOSTILE_VESSEL",    "HIGH",   "SEA"),     # Boat
+        
+        # Explicitly dropping civilian noise: person(0), bird(14), kite(38) will be ignored
     }
 
     def __init__(
         self,
         model_path: str = "yolov10s.pt",
-        conf_threshold: float = 0.45,
+        conf_threshold: float = 0.30,        # Lowered to catch uncertain military hardware
         iou_threshold: float = 0.45,         # NMS IoU threshold from Eq.(1)
         input_size: int = 640,
         use_gpu: bool = True
